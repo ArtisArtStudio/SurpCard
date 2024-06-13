@@ -125,6 +125,9 @@ text-shadow: 2px 2px #FFFFFF;
   }
 }
 
+@media (min-width: 760px){ 
+
+}
 @media (min-width: 1025px){ 
   .pagetop h4 {
     font-size: 2vh;

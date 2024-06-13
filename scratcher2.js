@@ -211,7 +211,6 @@ Scratcher = (function() {
 
     };
     function draw(context, x, y, width, height){
-        
         let topCurveHeight = height * 0.3;
         context.moveTo(x, y + topCurveHeight);
         // top left curve
@@ -240,10 +239,7 @@ Scratcher = (function() {
                               x, y + topCurveHeight
          );
         
-        //context.closePath();
-        // context.fillStyle = "red";
-        //context.fill();
-        //context.restore();
+        
 
     };
     /**
@@ -275,7 +271,6 @@ Scratcher = (function() {
         // call back if we have it
         this.dispatchEvent(this.createEvent('scratch'));
     };
-    
     /**
      * Set up the main canvas and listeners
      */
