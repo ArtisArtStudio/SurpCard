@@ -181,7 +181,6 @@
         document.addEventListener(
             "visibilitychange",
             function (evt) {
-                console.log("page hidden")
                 if (document.visibilityState != "visible") {
                     soundHandle.pause();
                     soundHandle.currentTime = 0;
@@ -239,6 +238,7 @@
 
         // var canvas = document.getElementById('scratcher1');
         // canvas.onmousemove = null;
+
         // Or if you didn't want to do it every scratch (to save CPU), you
         // can just do it on 'scratchesended' instead of 'scratch':
         //scratchers[2].addEventListener('scratchesended', scratcher3Changed);

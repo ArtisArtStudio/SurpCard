@@ -144,7 +144,13 @@ Scratcher = (function() {
                 count++;
             }
         }
-        
+
+        if ((count/total)>0.22999){
+
+            var mainctx = this.canvas.main.getContext('2d');
+            mainctx.globalCompositeOperation = 'source-in';
+            mainctx.drawImage(this.image.back.img, 0, 0,this.image.back.img.width, this.image.back.img.height,0,0,this.canvas.temp.width,this.canvas.temp.height);
+        }
         return count / total;
     };
     
@@ -171,6 +177,7 @@ Scratcher = (function() {
      * arbitrary-sized images, whereas in its current form, it will dog out
      * if the images are large.
      */
+   
     Scratcher.prototype.recompositeCanvases = function() {
         var tempctx = this.canvas.temp.getContext('2d');
         var mainctx = this.canvas.main.getContext('2d');
