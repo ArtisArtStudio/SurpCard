@@ -144,12 +144,18 @@ Scratcher = (function() {
                 count++;
             }
         }
-
-        if ((count/total)>0.22999){
+        var n = count/total;
+        n= (n*100)| 0;
+        if (n>23){
 
             var mainctx = this.canvas.main.getContext('2d');
+            var drawctx = this.canvas.draw.getContext('2d');
+            
             mainctx.globalCompositeOperation = 'source-in';
             mainctx.drawImage(this.image.back.img, 0, 0,this.image.back.img.width, this.image.back.img.height,0,0,this.canvas.temp.width,this.canvas.temp.height);
+            drawctx.globalCompositeOperation = 'source-over';
+            drawctx.drawImage(this.image.back.img, 0, 0,this.image.back.img.width, this.image.back.img.height,0,0,this.canvas.temp.width,this.canvas.temp.height);
+           
         }
         return count / total;
     };
@@ -186,7 +192,8 @@ Scratcher = (function() {
     
         // Step 1: clear the temp
         this.canvas.temp.width = this.canvas.temp.width; // resizing clears
-        
+        this.canvas.main.width = this.canvas.main.width; // resizing clears
+
         tempctx.save();
         tempctx.beginPath();
         draw(tempctx,w*0.5,0,w,w);
@@ -202,7 +209,7 @@ Scratcher = (function() {
         tempctx.restore();
         // Step 3: stamp the background on the temp (!! source-atop mode !!)
         tempctx.globalCompositeOperation = 'source-atop';
-        tempctx.drawImage(this.image.back.img, 0, 0,this.image.back.img.width, this.image.back.img.height,0,0,this.canvas.temp.width,this.canvas.temp.height);
+        tempctx.drawImage(this.image.back.img, 0, 0,this.image.back.img.width, this.image.back.img.height,0,0,w,h);
         mainctx.save();
         mainctx.beginPath();
         draw(mainctx,w*0.5,0,w,w);

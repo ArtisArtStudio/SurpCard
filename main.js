@@ -48,7 +48,7 @@
 
                 document.getElementsByTagName("body")[0].style.backgroundColor = color;
                 document.getElementsByTagName("body")[0].style.backgroundImage = 'none';
-
+                
                 //document.getElementsByTagName("body")[0].style.backgroundImage.animation = 'gradient 15s ease infinite';
                 $('#H3').hide();
                 $('#H4').hide();
@@ -58,7 +58,7 @@
         }
     };
     function scratcher1Changed(ev) {
-        pct1 = (this.fullAmount(40) * 100) | 0;
+        pct1 = (this.fullAmount(30) * 100) | 0;
         checkpct();
     };
 
