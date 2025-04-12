@@ -3,7 +3,8 @@
  *
  * depends on jQuery>=1.7
  */
-
+var canvas;
+var scratchers = [];
 (function () {
     /**
      * Returns true if this browser supports canvas
@@ -36,16 +37,19 @@
      */
     function checkpct() {
         if (!triggered) {
-            if (pct1 > 0 && pct1 < 23) {
+            if (pct1 > 15 && pct1 < 23) {
                 //document.getElementById("scratcher3Pct").innerHTML="Scratch MORE!";
-                if (!CrispyToast.clearall()) {
-                    CrispyToast.success('Scratch MORE!', { position: 'top-center' }, { timeout: 3000 });
+                if (CrispyToast.toasts.length===0) {
+                    CrispyToast.success('Scratch MORE!', { position: 'top-center', timeout: 2000});
                 }
             }
             if (pct1 > 23) {
                 $('#surprise').text(gendertext);
                 $('#surprise').css('color', colortxt);
-
+                if(CrispyToast.toasts.length!=0){
+                    CrispyToast.clearall();
+                }
+                scratchers[0].clear();
                 document.getElementsByTagName("body")[0].style.backgroundColor = color;
                 document.getElementsByTagName("body")[0].style.backgroundImage = 'none';
                 
@@ -115,7 +119,7 @@
     function onResetClicked(scratchers) {
         var i;
         pct1 = 0;
-
+        CrispyToast.toasts=[];
         $("#resetbutton").hide();
         for (i = 0; i < scratchers.length; i++) {
             scratchers[i].reset();
@@ -133,10 +137,22 @@
         soundHandle.currentTime = 0;
         return false;
     };
-
+    function fitCanvastoDiv() {
+        var ttd = $(canvas).parent();
+        // var ttd = document.getElementById('scratcher-box');
+        canvas.width = ttd.width();
+        canvas.height = canvas.width;
+        if(scratchers[0]){ 
+            if (triggered) {
+            scratchers[0].resetnoclear(true);
+        } else {
+            scratchers[0].resetnoclear(false);
+        }
+        }
+    }
     function initPage() {
         var scratcherLoadedCount = 0;
-        var scratchers = [];
+        canvas = document.getElementById("scratcher1");
         var i, i1;
 
         // document.addEventListener('mousedown', setMousePos, false);
@@ -144,6 +160,15 @@
         //     cursor_x = event.pageX;
         //     cursor_y = event.pageY;
         //     }
+        $( window ).on({
+            orientationchange: function(e) {
+                fitCanvastoDiv();
+            },resize: function(e) {
+                fitCanvastoDiv();
+            }
+        });        
+        fitCanvastoDiv();
+
         surname = params.get('surname');
         if (surname != null && surname.replace(/\s/g, '').length) {
             $("#baby").text(' ' + surname + ' family!');
@@ -161,7 +186,7 @@
         // }
 
         document.getElementById('intro').innerHTML = "This scratch off surprise card for <strong>" + surname + "</strong> family contains sound when the surprise is revealed. Do you want to continue with sound?";
-        document.getElementById('id01').style.display = 'block';
+        //document.getElementById('id01').style.display = 'block';
         $('.nosoundbtn').on("click", function (e) {
             document.getElementById('id01').style.display = 'none';
             nosound = true;
@@ -216,9 +241,9 @@
         };
 
         // create new scratchers
-        var scratchers = new Array(1);
+        scratchers = new Array(1);
 
-        for (i = 0; i < scratchers.length; i++) {
+       for (i = 0; i < scratchers.length; i++) {
             i1 = i + 1;
             scratchers[i] = new Scratcher('scratcher' + i1);
 
@@ -227,6 +252,8 @@
 
             scratchers[i].setImages('images/s' + i1 + 'bg.jpg',
                 'images/foreground.jpg');
+                scratchers[i].setShape('heart');
+
 
         }
 
