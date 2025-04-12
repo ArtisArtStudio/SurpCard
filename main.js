@@ -186,7 +186,7 @@ var scratchers = [];
         // }
 
         document.getElementById('intro').innerHTML = "This scratch off surprise card for <strong>" + surname + "</strong> family contains sound when the surprise is revealed. Do you want to continue with sound?";
-        //document.getElementById('id01').style.display = 'block';
+        document.getElementById('id01').style.display = 'block';
         $('.nosoundbtn').on("click", function (e) {
             document.getElementById('id01').style.display = 'none';
             nosound = true;
