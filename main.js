@@ -167,7 +167,6 @@ var scratchers = [];
                 fitCanvastoDiv();
             }
         });        
-        fitCanvastoDiv();
 
         surname = params.get('surname');
         if (surname != null && surname.replace(/\s/g, '').length) {
@@ -237,6 +236,7 @@ var scratchers = [];
                 $('#resetbutton').on('click', function () {
                     onResetClicked(scratchers);
                 });
+                fitCanvastoDiv();
 
                 // hide loading text, show instructions text
                 //$('#loading-text').hide();
